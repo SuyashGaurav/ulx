@@ -28,12 +28,12 @@ router.get('/', (req, res) => {
 //     }).catch(err => {console.log(err);});
 // });
 
-
+//using async
 router.post('./register', async (req, res) => {
-    const {name, email, phone, work, password, cpassword} = req.body;
+    const {name, email, phone, password, cpassword} = req.body;
     // console.log(name);
     // console.log(email);
-    if(!name || !email || !phone || !work || !password || !cpassword){
+    if(!name || !email || !phone || !password || !cpassword){
         return res.status(422).json({error : "Plz fill the required field(s)"});
     }
     try{
@@ -41,7 +41,7 @@ router.post('./register', async (req, res) => {
         if(userExist){
             return res.status(422).json({error: "Email already exists."});
         }
-        const user = new User({name, email, phone, work, password, cpassword});
+        const user = new User({name, email, phone, password, cpassword});
 
         await user.save();
         res.status(201).json({message: "User registered successfully" });
